@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block body %}
+    <!-- Home Image -->
+    <div class="w-100 h-100">
+        <div class="home-bg">
+            <div class="container">
+                <span class="slogan"><p class="slogan-slogan">Snowboarding is life</p></span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--  Tricks -->
+    <span class="tricks-taille"></span>
+    <div class="container p-5">
+        <div class="row">
+            {% for trick in tricks %}
+            <div class="col-lg-4 mb-4 trick" id="tricks">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="http://placehold.it/80x50" alt="Trick">
+                    <div class="card-body">
+                        <a href="{{ path('trick.show', {id: trick.id}) }}" class="btn btn-primary trick-link">{{ trick.name }}</a>
+                    </div>
+                </div>
+            </div>
+
+
+            {% endfor %}
+            <div class="container mb-30">
+                <div class="row justify-content-center m-3">
+                        <form class="form-inline">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Voir plus</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+

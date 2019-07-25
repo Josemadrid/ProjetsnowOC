@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block title trick.name %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center ">
+            <div class="col-md-12 col-md-offset-1  mb-4">
+                <div class="card mt-5">
+                    <div class="jumbotron">
+                        <div class="container">
+
+                            <h1>{{ trick.name }}</h1>
+
+
+                            <div class="row">
+                                <div class="col-md-8">
+
+                                    <img src="http://placehold.it/80x50" alt="card-img-top"
+                                         style="width: 100%; height: auto;">
+                                    <div class="container mt-4"><h1></h1></div>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <h3>Description:</h3>
+                                    <h5>{{ trick.createdAt|date("m/d/Y") }}</h5>
+
+                                    <div class="text-right">
+                                        <a href="{{ path('add.trick') }}" class="btn btn-primary">Créer un trick</a>
+                                    </div>
+                                    <div class="text-right mt-5">
+                                        <a href="{{ path('edit.trick',{id: trick.id}) }}" class="btn btn-primary">Editer
+                                            un trick</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container mt-4">
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Caracteristiques</h2>
+
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>Groupe</td>
+                                        <td>{{ trick.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dificulté</td>
+                                        <td>{{ trick.type.name }}</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <span class="comments-anchor" id="comments-block"></span>
+                    <div class="col-md-12 pl-0 pr-0">
+                        <div class="comments text-left padDiv mb-30">
+                            <div class="entry-comments">
+                                <h6 class="mb-30"> commentaires</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

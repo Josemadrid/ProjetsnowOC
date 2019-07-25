@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme form _self %}
+
+{% block body %}
+    <!-- Start Create Trick -->
+    <div class="container mt-5">
+        <div class="row justify-content-center ">
+            <div class="col-md-12 col-md-offset-1  mb-4">
+                <div class="card mt-5">
+
+                    <div class="card-header border-bottom">
+                        <h3 class="m-0">Ajouter votre trick</h3>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                            <div class="row">
+                                <div class="col">
+                                    {% form_theme form _self %}
+                                    {{ form_start(form) }}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            {{ form_row(form.name) }}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            {{ form_row(form.name) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            {{ form_row(form.name) }}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            {{ form_row(form.name) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.description) }}
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 text-center">
+                                            <p>Cliquez pour ajouter une image</p>
+                                            {{ form_widget(form.name) }}
+                                            <input type="hidden" id="image-counter" value="0">
+                                            <div class="form-group mt-2">
+                                                <button type="button" class="btn btn-outline-info" id="add-image">
+                                                    Ajouter une image
+                                                </button>
+                                                <span class="counter-image text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 text-center">
+                                            <p>Cliquez pour ajouter une vidéo (<u>Youtube uniquement</u>)</p>
+                                            {{ form_widget(form.name) }}
+                                            <input type="hidden" id="video-counter" value="0">
+                                            <div class="form-group mt-2">
+                                                <button type="button" class="btn btn-outline-info" id="add-video">
+                                                    Ajouter une vidéo
+                                                </button>
+                                                <span class="counter-video text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4 text-center">
+                                        <button type="submit" class="btn btn-success">Ajouter le trick</button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Create Trick -->
+{% endblock %}
