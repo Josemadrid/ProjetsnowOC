@@ -8,6 +8,16 @@
                 <div class="card mt-5">
                     <div class="jumbotron">
                         <div class="container">
+                            {% for message in app.flashes('success') %}
+                                <div class="alert alert-success">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error | trans ({}, 'error') }}
+                                </div>
+                            {% endif %}
 
                             <h1>{{ trick.name }}</h1>
 
@@ -22,6 +32,7 @@
                                 <div class="col-md-4">
 
                                     <h3>Description:</h3>
+                                   <h5>{{ trick.description }}</h5>
                                     <h5>{{ trick.createdAt|date("m/d/Y") }}</h5>
 
                                     <div class="text-right">
@@ -42,17 +53,14 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Caracteristiques</h2>
+                                <h5>Caracteristiques</h5>
 
                                 <table class="table table-striped">
                                     <tr>
                                         <td>Groupe</td>
-                                        <td>{{ trick.name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dificulté</td>
                                         <td>{{ trick.type.name }}</td>
                                     </tr>
+
                                 </table>
 
                             </div>

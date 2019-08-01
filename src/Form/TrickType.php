@@ -33,8 +33,9 @@ class TrickType extends AbstractType
                     'placeholder' => 'Description du trick',
                 ],
             ])
-            ->add('type', ChoiceType::class, [
-                'choices' => $this->getChoices(),
+            ->add('type', EntityType::class, [
+                'class' => Type::class,
+                'choice_label' => 'type'
 
 
 

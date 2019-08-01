@@ -303,7 +303,7 @@ h6 {
 /*-----------------------------------------------------------------------------------*/
 
 .login {
-    margin-top: 11rem;
+    margin-top: 6rem;
     margin-bottom: 3rem;
 }
 
@@ -314,7 +314,7 @@ h6 {
 /*-----------------------------------------------------------------------------------*/
 
 .registration {
-    margin-top: 10rem;
+    margin-top: 6rem;
     margin-bottom: 3rem;
 }
 
@@ -362,7 +362,8 @@ h6 {
 /*-----------------------------------------------------------------------------------*/
 
 .update-trick {
-    margin-top: 8rem;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
 }
 
 #trick_content {
@@ -394,8 +395,8 @@ body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4
 }
 
 .card>.list-group:last-child .list-group-item:last-child {
-    border-bottom-right-radius: 0.625rem;
-    border-bottom-left-radius: 0.625rem;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 }
 
 .custom-file-label {
@@ -439,7 +440,7 @@ p.collection-head.first {
     margin-top: 1rem;
 }
 
-.delimiter {
+.hrspecial {
     margin-top: 0;
     margin-bottom: 2rem;
 }

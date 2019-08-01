@@ -52,23 +52,27 @@
             <li class="nav-item">
                 <a class="nav-link" href="/#tricks">Tricks</a>
             </li>
-
+            {% if not app.user %}
             <li class="nav-item">
-                <a class="nav-link" href="">Connexion</a>
+                <a class="nav-link" href="/connexion">Connexion</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Inscription</a>
+                <a class="nav-link" href="/inscription">Inscription</a>
             </li>
 
-
+            {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="">Administration</a>
+                <a class="nav-link" href="">Profil</a>
             </li>
-
+            {% if app.user.role == 'ROLE_ADMIN' %}
             <li class="nav-item">
-                <a class="nav-link" href="">Déconnexion</a>
+                <a class="nav-link" href="/admin">Administration</a>
             </li>
-
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="/deconnexion">Déconnexion</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

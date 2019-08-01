@@ -32,6 +32,12 @@ class Type
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="type")
+     */
+    private $tricks;
+
+    private $type;
 
 
     public function __construct()
@@ -85,5 +91,21 @@ class Type
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type): void
+    {
+        $this->type = $type;
     }
 }

@@ -4,15 +4,15 @@
 {% form_theme form _self %}
 
 {% block body %}
-    <!-- Start Create Trick -->
-    <div class="container mt-5">
-        <div class="row justify-content-center ">
-            <div class="col-md-12 col-md-offset-1  mb-4">
-                <div class="card mt-5">
 
-                    <div class="card-header border-bottom">
-                        <h3 class="m-0">Modifier votre trick</h3>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-md-offset-1 update-trick">
+                <div class="card card-small mb-4">
+                    <div class="card-header border-bottom text-center">
+                        <h3 class="m-0">Modifier le trick</h3>
                     </div>
+
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
                             <div class="row">
@@ -20,56 +20,67 @@
                                     {% form_theme form _self %}
                                     {{ form_start(form) }}
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            {{ form_row(form.name) }}
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            {{ form_row(form.name) }}
+                                        <div class="form-group col-md-12">
+                                            <div class="text-center">
+                                                <img src="http://placehold.it/800x600" alt="" class="img-trick-principale">
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <select name="" id="">
-                                            {% for groupe in form.type %}
-                                            {{ form_widget(groupe) }}
-                                            {% enfor %}
-                                        </select>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                        </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="col-md-8 offset-md-2">
                                             {{ form_row(form.name) }}
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.description) }}
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6 text-center">
-                                            <p>Cliquez pour ajouter une image</p>
-                                            {{ form_widget(form.name) }}
-                                            <input type="hidden" id="image-counter" value="0">
-                                            <div class="form-group mt-2">
-                                                <button type="button" class="btn btn-outline-info" id="add-image">
-                                                    Ajouter une image
-                                                </button>
-                                                <span class="counter-image text-danger"></span>
+                                    <hr>
+                                    <div class="load-media d-none d-lg-block">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12 text-center">
+
+                                                <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une image</p>
+                                                {{ form_widget(form.name) }}
+                                                <input type="hidden" id="image-counter" value="0">
+                                                <div class="form-group mt-2 pb-2">
+                                                    <button type="button" class="btn btn-outline-info trick" id="add-image">Ajouter une image</button>
+                                                    <span class="counter-image text-danger"></span>
+                                                </div>
+                                                <hr>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-6 text-center">
-                                            <p>Cliquez pour ajouter une vidéo (<u>Youtube uniquement</u>)</p>
-                                            {{ form_widget(form.name) }}
-                                            <input type="hidden" id="video-counter" value="0">
-                                            <div class="form-group mt-2">
-                                                <button type="button" class="btn btn-outline-info" id="add-video">
-                                                    Ajouter une vidéo
-                                                </button>
-                                                <span class="counter-video text-danger"></span>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12 text-center">
+                                                <p class="collection-head">Cliquez pour ajouter, supprimer ou modifier une vidéo (<u>Youtube uniquement</u>)</p>
+                                                {{ form_widget(form.name) }}
+                                                <input type="hidden" id="video-counter" value="0">
+                                                <div class="form-group mt-2">
+                                                    <button type="button" class="btn btn-outline-info trick" id="add-video">Ajouter une vidéo</button>
+                                                    <span class="counter-video text-danger"></span>
+                                                </div>
+
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="#" id="loadMedia" class="d-md-block d-lg-none">
+                                            <button class="btn btn-outline-secondary">Afficher les médias</button>
+                                        </a>
+                                        <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
+                                            <button class="btn btn-outline-secondary mt-3">Masquer les médias</button>
+                                        </a>
+                                    </div>
+                                    <hr class="hrspecial">
+                                    <div class="col-md-8 offset-md-2">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                {{ form_row(form.description) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.type) }}
                                         </div>
                                     </div>
                                     <div class="form-group mt-4 text-center">
-                                        <button type="submit" class="btn btn-success">Ajouter le trick</button>
+                                        <button type="submit" class="btn btn-success">Modifier</button>
                                     </div>
                                     {{ form_end(form) }}
                                 </div>
@@ -81,5 +92,4 @@
         </div>
     </div>
 
-    <!-- End Create Trick -->
 {% endblock %}
