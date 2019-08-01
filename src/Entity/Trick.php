@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -20,11 +21,30 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(
+     *      message = "Ce champ est requis !"
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20,
+     *      minMessage = "Votre nom de trick doit contenir au moins {{ limit }} caractères !",
+     *      maxMessage = "Votre nom de trick ne peut pas contenir plus que {{ limit }} caractères !"
+     * )
      */
+
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message = "Ce champ est requis !"
+     * )
+     * @Assert\Length(
+     *      min = 15,
+     *      max = 250,
+     *      minMessage = "Votre description doit contenir au moins {{ limit }} caractères !",
+     *      maxMessage = "Votre description ne peut pas contenir plus que {{ limit }} caractères !"
+     * )
      */
     private $description;
 

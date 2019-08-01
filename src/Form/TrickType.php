@@ -35,7 +35,11 @@ class TrickType extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
-                'choice_label' => 'type'
+                'mapped' => 'false',
+                'choice_label' => function(Type $type){
+                return $type->getName();
+                },
+                'label' => 'Groupe',
 
 
 

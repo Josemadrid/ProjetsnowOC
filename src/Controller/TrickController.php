@@ -82,7 +82,7 @@ class TrickController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setUpdatedAt(new \Datetime);
+            $trick->setUpdatedAt(new \Datetime('now', new \DateTimeZone('Europe/Paris')));
             $this->manager->flush();
             $this->addFlash('success', 'Trick modifié avec succès');
             return $this->redirectToRoute('trick.show', ['id' => $trick->getId()]);
@@ -112,10 +112,10 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $createdAt = new \DateTime();
 
-            $trick->setCreatedAt($createdAt)
-                ->setUser($this->getUser());
+            $trick->setCreatedAt(new \Datetime('now', new \DateTimeZone('Europe/Paris')));
+
+            $trick->setUser($this->getUser());
 
             $this->manager->persist($trick);
             $this->manager->flush();
