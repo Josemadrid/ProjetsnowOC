@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -18,8 +19,12 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      max = 1000,
+     *      maxMessage = "Votre commentaire ne peut pas dépasser plus de {{ limit }} caractères !"
+     * )
      */
-    private $content;
+    private $contenu;
 
     /**
      * @ORM\Column(type="datetime")
@@ -28,30 +33,22 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $author;
+    private $user;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
 
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -77,15 +74,36 @@ class Comment
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getUser(): ?User
     {
-        return $this->author;
+        return $this->user;
     }
 
-    public function setAuthor(?User $author): self
+    public function setUser(?User $user): self
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
+    }
+
+    public function content()
+    {
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContenu()
+    {
+        return $this->contenu;
+    }
+
+    /**
+     * @param mixed $contenu
+     */
+    public function setContenu($contenu): void
+    {
+        $this->contenu = $contenu;
     }
 }

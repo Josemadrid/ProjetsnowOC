@@ -21,20 +21,17 @@ class Picture
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $file;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $path;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="pictures")
      */
     private $trick;
+
+
+    private $picture;
+
+
+
 
     public function getId(): ?int
     {
@@ -87,5 +84,21 @@ class Picture
         $this->trick = $trick;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param mixed $picture
+     */
+    public function setPicture($picture): void
+    {
+        $this->picture = $picture;
     }
 }

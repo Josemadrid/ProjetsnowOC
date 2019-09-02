@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,33 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
+
+    /**
+     * @var TrickRepository
+     */
+    private $repository;
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+    public function __construct(TrickRepository $repository, ObjectManager $em)
+    {
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+
+    /**
+     * @Route("/profile", name="user.dashboard")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function index()
+    {
+        $tricks = $this->repository->findAll();
+        return $this->render('user/index.html.twig', compact('tricks'));
+    }
+
+
     /**
      * @Route("/inscription", name="security_registration")
      */
@@ -57,6 +85,7 @@ class UserController extends AbstractController
      * @Route("/deconnexion", name="user_logout")
      */
     public function logout(){
+
 
     }
 

@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Property;
+
 use App\Entity\Trick;
-use App\Entity\User;
-use App\Form\PropertyType;
 use App\Form\TrickType;
-use App\Repository\PropertyRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +15,7 @@ class AdminController extends AbstractController
 {
 
     /**
-     * @var PropertyRepository
+     * @var TrickRepository
      */
     private $repository;
     /**
@@ -32,15 +29,7 @@ class AdminController extends AbstractController
         $this->em = $em;
     }
 
-    /**
-     * @Route("/admin", name="admin.dashboard")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index()
-    {
-        $tricks = $this->repository->findAll();
-        return $this->render('admin/index.html.twig', compact('tricks'));
-    }
+
 
     /**
      * @Route("/admin/trick/create", name= "admin.trick.new")

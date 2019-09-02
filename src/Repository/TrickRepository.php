@@ -34,7 +34,16 @@ class TrickRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->createQueryBuilder('t')
-            ->setMaxResults(10)
+            ->setMaxResults( 6)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findWithMaxResult(int $maxresult)
+    {
+        return $this->createQueryBuilder('t')
+            ->setMaxResults($maxresult)
             ->getQuery()
             ->getResult()
             ;

@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
 
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -30,29 +31,30 @@
     <!-- Police -->>
     <link href="https://fonts.googleapis.com/css?family=Reenie+Beanie&display=swap" rel="stylesheet">
 
-   
+
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"">
-    <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="{{ asset('pictures/logo.png') }}"
-                                                           alt="Logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse ml-auto" id="navbarColor01">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item mt-3 mt-lg-0">
-                <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+">
+<a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="{{ asset('pictures/logo.png') }}"
+                                                       alt="Logo"></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse ml-auto" id="navbarColor01">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item mt-3 mt-lg-0">
+            <a class="nav-link" href="{{ path('home') }}">Accueil</a>
 
-            </li>
+        </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/#tricks">Tricks</a>
-            </li>
-            {% if not app.user %}
+        <li class="nav-item">
+            <a class="nav-link" href="/#tricks">Tricks</a>
+        </li>
+        {% if not app.user %}
             <li class="nav-item">
                 <a class="nav-link" href="/connexion">Connexion</a>
             </li>
@@ -60,21 +62,19 @@
                 <a class="nav-link" href="/inscription">Inscription</a>
             </li>
 
-            {% else %}
+        {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="">Profil</a>
+                <a class="nav-link" href="/profile">Profil</a>
             </li>
-            {% if app.user.role == 'ROLE_ADMIN' %}
             <li class="nav-item">
-                <a class="nav-link" href="/admin">Administration</a>
+                <a class="nav-link" href="/add/trick">Ajouter un trick</a>
             </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="/deconnexion">Déconnexion</a>
             </li>
-            {% endif %}
-        </ul>
-    </div>
+        {% endif %}
+    </ul>
+</div>
 </nav>
 
 <div class="page-header row">
@@ -93,6 +93,8 @@
 <footer class="container-fluid text-center">
     <p>© COPYRIGHT</p>
 </footer>
+
+
 <!-- End Footer -->
 
 

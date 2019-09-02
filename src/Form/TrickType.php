@@ -10,6 +10,7 @@ use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\FirewallEntryPointBund
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,17 +37,27 @@ class TrickType extends AbstractType
             ->add('type', EntityType::class, [
                 'class' => Type::class,
                 'mapped' => 'false',
-                'choice_label' => function(Type $type){
-                return $type->getName();
+                'choice_label' => function (Type $type) {
+                    return $type->getName();
                 },
                 'label' => 'Groupe',
-
-
-
-                ])
-
-
-        ;
+            ])
+            ->add('file', FileType::class, [
+                'label' => 'Image',
+                'required' => false,
+                'data_class' => null,
+                'attr' => [
+                    'placeholder' => 'Ajouter ou modifier l\'image principale du trick',
+                ],
+            ])
+            ->add('pictures', CollectionType::class, [
+                'required' => false,
+                'entry_type' => PictureType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ]);
 
     }
 
@@ -57,13 +68,5 @@ class TrickType extends AbstractType
         ]);
     }
 
-    private function getChoices()
-    {
-        $choices = Type::TYPES;
-        $output = [];
-        foreach ($choices as $k => $v){
-            $output[$v] = $k;
-        }
-        return $output;
-    }
+
 }

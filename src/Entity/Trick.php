@@ -6,9 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+ * @UniqueEntity(
+ *      fields={"name"},
+ *      message="Ce trick existe déjà.")
  */
 class Trick
 {
@@ -59,6 +63,12 @@ class Trick
      */
     private $updatedAt;
 
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick")
      */
@@ -74,7 +84,13 @@ class Trick
      */
     private $videos;
 
-
+    /**
+     * @Assert\Image(
+     *      maxSize = "1M",
+     *      maxSizeMessage = "Votre avatar ne doit pas dépasser 1 Mo",
+     * )
+     */
+    private $file;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
@@ -86,6 +102,8 @@ class Trick
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
+
+
 
     public function __construct()
     {
@@ -265,4 +283,47 @@ class Trick
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param mixed $picture
+     */
+    public function setPicture($picture): void
+    {
+        $this->picture = $picture;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path): void
+    {
+        $this->path = $path;
+    }
+
 }

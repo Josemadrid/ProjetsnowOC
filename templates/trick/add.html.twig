@@ -9,7 +9,7 @@
             <div class="col-md-12 col-md-offset-1 update-trick">
                 <div class="card card-small mb-4">
                     <div class="card-header border-bottom text-center">
-                        <h3 class="m-0">Créer le trick</h3>
+                        <h3 class="m-0">Ajouter un trick</h3>
                     </div>
                     {% for message in app.flashes('success') %}
                         <div class="alert alert-success">
@@ -31,16 +31,13 @@
                                         <div class="form-group col-md-6">
                                             {{ form_row(form.name) }}
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            {{ form_row(form.name) }}
-                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            {{ form_row(form.name) }}
+                                            {{ form_row(form.file) }}
                                         </div>
                                         <div class="form-group col-md-6">
-                                            {{ form_row(form.name) }}
+                                            {{ form_row(form.type) }}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -49,37 +46,31 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6 text-center">
                                             <p>Cliquez pour ajouter une image</p>
-                                            {{ form_widget(form.name) }}
-                                            <input type="hidden" id="image-counter" value="0">
+                                            {{ form_widget(form.pictures) }}
+                                            <input type="hidden" id="image-counter" value="0" >
                                             <div class="form-group mt-2">
-                                                <button type="button" class="btn btn-outline-info" id="add-image">
+                                                <button type="button" class="btn btn-outline-success" id="add-image">
+
                                                     Ajouter une image
                                                 </button>
+                                                <input type="file" multiple="multiple" name="pictures">
+
                                                 <span class="counter-image text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6 text-center">
-                                            <p>Cliquez pour ajouter une vidéo (<u>Youtube uniquement</u>)</p>
+                                            <p>Cliquez pour ajouter une vidéo Youtube</p>
                                             {{ form_widget(form.name) }}
                                             <input type="hidden" id="video-counter" value="0">
                                             <div class="form-group mt-2">
-                                                <button type="button" class="btn btn-outline-info" id="add-video">
+                                                <button type="button" class="btn btn-outline-success" id="add-video">
                                                     Ajouter une vidéo
                                                 </button>
                                                 <span class="counter-video text-danger"></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 offset-md-2">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                {{ form_row(form.description) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            {{ form_row(form.type) }}
-                                        </div>
-                                    </div>
+
                                     <div class="form-group mt-4 text-center">
                                         <button type="submit" class="btn btn-success">Ajouter</button>
                                     </div>

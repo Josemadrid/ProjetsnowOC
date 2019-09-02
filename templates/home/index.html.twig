@@ -8,40 +8,66 @@
         <div class="home-bg">
             <div class="container">
                 <span class="slogan"><p class="slogan-slogan">Snowboarding is life</p></span>
+                <a href="#tricks"><i class="fas fa-angle-double-down fa-4x chevron-down"></i></a>
             </div>
-
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show mb-0 mt-1" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <i class="fa fa-check mx-2"></i>
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
 
     <!--  Tricks -->
-    <span class="tricks-taille"></span>
-    <div class="container p-5">
+
+    <div id="tricks" class="container p-5">
         <div class="row">
             {% for trick in tricks %}
-            <div class="col-lg-4 mb-4 trick" id="tricks">
-                <div class="card" style="width: 20rem;">
-                    <img class="card-img-top" src="http://placehold.it/80x50" alt="Trick">
-                    <div class="card-body">
-                        <a href="{{ path('trick.show', {id: trick.id}) }}" class="btn btn-primary trick-link">{{ trick.name }}</a>
+                <div class="col-lg-4 mb-4 trick" id="tricks">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="{{ trick.picture }}" alt="{{ trick.name }}">
+                        <div class="card-body">
+                            <a href="{{ path('trick.show', {id: trick.id}) }}"
+                               class="btn btn-primary trick-link">{{ trick.name }}</a>
+
+                            {% if app.user %}
+                                <a href="{{ path('edit.trick', {id: trick.id}) }}"
+                                   style="float: right"
+                                   class="far fa-edit cursor trick-link"></a>
+
+                                <a href="{{ path('delete.trick', {id: trick.id}) }}"
+                                   style="float: right"
+                                   onclick="return confirm('Vous êtes sûr?')"
+                                   class="far fa-trash cursor trick-link"></a>
+                            {% endif %}
+                        </div>
+
                     </div>
                 </div>
-            </div>
 
 
             {% endfor %}
             <div class="container mb-30">
                 <div class="row justify-content-center m-3">
-                        <form class="form-inline">
-                            <button class="btn btn-sm btn-outline-secondary" type="button">Voir plus</button>
-                        </form>
+                    <a href="{{ path('all.tricks') }}#tricks" class="btn btn-primary trick-link">Voir plus...</a>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container-fluid cup">
+        <a href="#tricks">
+            <i class="fas fa-angle-double-up fa-4x chevron-up"></i>
+        </a>
     </div>
 
 
 
 
 {% endblock %}
+
 

@@ -27,7 +27,7 @@ $(function () {
 /*-----------------------------------------------------------------------------------*/
 
 $(function () {
-    $("div.trick").slice(0, 6).show();
+    $("div.trick").slice(0, 500).show();
     $("#loadMoreTrick").on('click', function (e) {
         e.preventDefault();
         $("div.trick:hidden").slice(0, 6).slideDown();
@@ -146,7 +146,7 @@ function handleDeleteButtons() {
 
 function displayCounter() {
     const countImage = +$('#trick_images div.form-group').length;
-    const counterImage = countImage + '/8';
+    const counterImage = countImage + '/3';
     $('.counter-image').text(counterImage);
     if (countImage >= 8) {
         $('#add-image').hide();
@@ -154,7 +154,7 @@ function displayCounter() {
         $('#add-image').show();
     }
     const countVideo = +$('#trick_videos div.form-group').length;
-    const counterVideo = countVideo + '/8';
+    const counterVideo = countVideo + '/3';
     $('.counter-video').text(counterVideo);
     if (countVideo >= 8) {
         $('#add-video').hide();

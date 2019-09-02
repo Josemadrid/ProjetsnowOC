@@ -1,84 +1,203 @@
 {% extends 'base.html.twig' %}
-{% block title trick.name %}
+
+{% block title %}SnowTricks - {{ trick.name }}{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row justify-content-center ">
-            <div class="col-md-12 col-md-offset-1  mb-4">
-                <div class="card mt-5">
-                    <div class="jumbotron">
-                        <div class="container">
-                            {% for message in app.flashes('success') %}
-                                <div class="alert alert-success">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                            {% if error %}
-                                <div class="alert alert-danger">
-                                    {{ error | trans ({}, 'error') }}
-                                </div>
-                            {% endif %}
+<!-- Start Trick -->
+<div class="container mt-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12 col-md-offset-1 mt-5 mb-4">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show mb-0 mt-1" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <i class="fa fa-check mx-2"></i>
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
+            <div class="card mt-3">
+            <h3 class="row justify-content-center mt-3 "><strong>{{ trick.name }}</strong></h3>
 
-                            <h1>{{ trick.name }}</h1>
+            <div class="card mt-3">
+                <div>
+                    <img class="card-img-top" src="{{ trick.picture }}" alt="{{ trick.name }}-main">
+                    {% if app.user %}
+                        <a href="{{ path('edit.trick', {id: trick.id}) }}"
+                           style="float: right"
+                           class="far fa-edit cursor trick-link"></a>
+
+                        <a href="{{ path('delete.trick', {id: trick.id}) }}"
+                           style="float: right"
+                           onclick="return confirm('Vous êtes sûr?')"
+                           class="far fa-trash cursor trick-link"></a>
+                    {% endif %}
+                </div>
 
 
-                            <div class="row">
-                                <div class="col-md-8">
-
-                                    <img src="http://placehold.it/80x50" alt="card-img-top"
-                                         style="width: 100%; height: auto;">
-                                    <div class="container mt-4"><h1></h1></div>
-                                </div>
-                                <div class="col-md-4">
-
-                                    <h3>Description:</h3>
-                                   <h5>{{ trick.description }}</h5>
-                                    <h5>{{ trick.createdAt|date("m/d/Y") }}</h5>
-
-                                    <div class="text-right">
-                                        <a href="{{ path('add.trick') }}" class="btn btn-primary">Créer un trick</a>
+                <div class="card-body">
+                    {% if app.user %}
+                        <div class="blog-comments__actions mt-3">
+                            <div class="btn-group btn-group-sm">
+                                {% for message in app.flashes('success') %}
+                                    <div class="alert alert-success">
+                                        {{ message }}
                                     </div>
-                                    <div class="text-right mt-5">
-                                        <a href="{{ path('edit.trick',{id: trick.id}) }}" class="btn btn-primary">Editer
-                                            un trick</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="container mt-4">
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5>Caracteristiques</h5>
-
-                                <table class="table table-striped">
-                                    <tr>
-                                        <td>Groupe</td>
-                                        <td>{{ trick.type.name }}</td>
-                                    </tr>
-
-                                </table>
+                                {% endfor %}
 
                             </div>
                         </div>
-                    </div>
-                    <span class="comments-anchor" id="comments-block"></span>
-                    <div class="col-md-12 pl-0 pr-0">
-                        <div class="comments text-left padDiv mb-30">
-                            <div class="entry-comments">
-                                <h6 class="mb-30"> commentaires</h6>
+                    {% endif %}
 
+                    <hr>
+
+                    <!-- Start Carousel -->
+
+                    <div class="row d-none d-lg-flex load-media">
+                        <div class="col-lg-6 col-md-12">
+                            <div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                                <ol class="carousel-indicators">
+
+                                    <li data-target=".carousel" data-slide-to=class="active"></li>
+
+                                </ol>
+                                <div class="carousel-inner enlarge">
+
+                                    <div class="carousel-item  active ">
+                                        <img class="d-block" src="/pictures/360.jpg" alt="{{ trick.name }}-image-">
+                                    </div>
+
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
                             </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                                <ol class="carousel-indicators">
+
+                                    <li data-target="#carousel-v" data-slide-to="" class="active"></li>
+
+                                </ol>
+                                <div class="carousel-inner">
+
+                                    <div class="carousel-item  active ">
+                                        <iframe src="" allowfullscreen></iframe>
+                                    </div>
+
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel-v" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a href="#" id="loadMedia" class="d-md-block d-lg-none">
+                            <button class="btn btn-outline-secondary">Afficher les médias</button>
+                        </a>
+                        <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
+                            <button class="btn btn-outline-secondary mt-3">Masquer les médias</button>
+                        </a>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="d-inline-block text-center no-medias">
+                            <p class="mt-3 ml-3 mr-3">Pas de médias pour ce trick</p>
+                        </div>
+                    </div>
+
+                    <!-- End Carousel -->
+                    <hr>
+                    <h5>Description</h5>
+                    <p class="card-text text-justify">{{ trick.description }}</p>
+                    <div class="row">
+
+                        <div class="col-md-10 ml-auto mr-auto mb-5 text-center ">
+                            <h5>
+                                <span class="btn btn-outline-dark">Groupe de trick : {{ trick.type.name }}</span>
+                            </h5>
+
+                            <span class="btn btn-outline-primary btn-sm">Publié le : {{ trick.Createdat | date('d-m-Y') }}</span>
+
+                                <span class="btn btn-outline-success btn-sm"><small>Mise à jour le
+                                : {% if trick.updatedAt is defined %}{{ trick.updatedAt | date('d/m/Y') }}{% endif %}</small></span>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <!--  End Trick -->
 
+            <!-- Start Comment Add Form -->
+            {% if app.user %}
+                <div class="col-lg-12 px-0 mb-30">
+                    <div class="cment Divpadding">
+                        <h6 class="mb-30">Bonjour {{ app.user.username }} !</h6>
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.contenu) }}
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success mt-3">Commenter</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-12 px-0 mb-30">
+                    <div class="comments text-center p-3">
+                        <p><a href="{{ path('security_registration') }}">Inscrivez-vous</a> ou <a
+                                    href="{{ path('user_login') }}">connectez vous</a> pour commenter cet article</p>
+                    </div>
+                </div>
+            {% endif %}
+            <!-- Start Comment Add Form -->
+
+                <!-- Start Comments -->
+                <span class="comments-anchor" id="comments-block"></span>
+                <div class="col-md-12 pl-0 pr-0">
+                    <div class="comments text-left Divpadding mb-30">
+                        <div class="entry-comments">
+                            <h6 class="mb-30">{{ trick.comments | length }} commentaires</h6>
+                            <ul class="entry-comments-list list-unstyled">
+                                {% for comment in comments %}
+                                    <span class="comment-anchor" id="{{ comment.id }}"></span>
+                                    <li>
+                                        <div class="entry-comments-item">
+                                            <img src="/pictures/avatar-default.jpg" class="entry-comments-avatar" alt="">
+                                            <div class="entry-comments-body">
+                                                <span class="entry-comments-author"></span>
+                                                <span class="comment-date">le {{ comment.createdAt | date('d/m/Y') }} à {{ comment.createdAt | date('H:i') }}</span>
+                                                <p class="comment-content text-justify">{{ comment.contenu }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+
+
+                            {% if display %}
+                            <div class="container mb-30">
+                                <div class="row justify-content-center m-3" id="comments">
+                                    <a href="{{ path('all.comments',{id: trick.id}) }}#comments" class="btn btn-primary trick-link">Voir plus...</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Comments -->
+            </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -1,69 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-md-offset-1 update-trick">
-                <div class="card card-small mb-4 mt-5">
-                    <div class="card-header border-bottom text-center">
-                        <h3 class="m-0">Gérer les tricks</h3>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-3">
-                            <div class="row">
-                                <div class="col">
-                                    {% for message in app.flashes('success') %}
-                                        <div class="alert alert-success">
-                                            {{ message }}
-                                        </div>
-                                    {% endfor %}
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <div class="text-center">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Nom</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for trick in tricks %}
-                                            <tr>
-                                                <td>{{ trick.name }}</td>
-                                                <td>
-                                                    <a href="{{ path('admin.trick.edit', {id: trick.id}) }}"
-                                                       class="btn btn-secondary">Editer</a>
-                                                    <form method="post"
-                                                          action="{{ path('admin.trick.delete', {id: trick.id}) }}"
-                                                          style="display: inline-block"
-                                                          onsubmit="return confirm('Vous êtes sûr?')">
-                                                        <input type="hidden" name="_method" value="DELETE">
+<div class="container mt-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12 col-md-offset-1 mt-5 mb-4">
+        <body>
 
-                                                        <button class="btn btn-danger">Supprimer</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
+        <div class="d-flex" id="wrapper">
 
-                                        </tbody>
-                                    </table>
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading">Dashboard</div>
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Mes Données</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Mes tricks</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Mes commentaires</a>
 
-                                    <div class="text-right">
-                                        <a href="{{ path('admin.trick.new') }}" class="btn btn-primary">Créer un nouveau
-                                            trick</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
-        </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+
+
+                <div class="container-fluid">
+                    <h1 class="mt-4">asdfsdf</h1>
+
+                </div>
+            </div>
+
+
+        </body>
     </div>
     </div>
-    </div>
-    </div>
-    </div>
+</div>
 
 {% endblock %}
+

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use phpDocumentor\Reflection\Types\Self_;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +18,30 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Comment::class);
+    }
+
+    const MAX_COMMENTS = 10;
+
+    public function findCommentsByTrick($id)
+    {
+        return $this->createQueryBuilder('comment')
+            ->where('comment.trick = :id')
+            ->setParameter(':id', $id)
+            ->setMaxResults(self::MAX_COMMENTS)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findWithMaxResult(int $maxresult, $id)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.trick = :id')
+            ->setParameter(':id', $id)
+            ->setMaxResults($maxresult)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
