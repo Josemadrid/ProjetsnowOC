@@ -30,7 +30,7 @@
             {% for trick in tricks %}
                 <div class="col-lg-4 mb-4 trick" id="tricks">
                     <div class="card" style="width: 20rem;">
-                        <img class="card-img-top" src="{{ trick.picture }}" alt="{{ trick.name }}">
+                        <img class="card-img-trick" src="{{ trick.picture }}" alt="{{ trick.name }}">
                         <div class="card-body">
                             <a href="{{ path('trick.show', {id: trick.id}) }}"
                                class="btn btn-primary trick-link">{{ trick.name }}</a>

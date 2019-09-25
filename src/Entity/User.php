@@ -93,6 +93,13 @@ class User implements UserInterface,\Serializable
      */
     private $tricks;
 
+
+
+
+
+
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -262,4 +269,21 @@ class User implements UserInterface,\Serializable
             $this->email
             ) = unserialize($serialized, ['allowed_classes' => false]);
     }
+
+    public function getN(): ?TokenPassword
+    {
+        return $this->n;
+    }
+
+    public function setN(?TokenPassword $n): self
+    {
+        $this->n = $n;
+
+        return $this;
+    }
+
+
+
+
+
 }
