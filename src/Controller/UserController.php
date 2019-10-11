@@ -140,7 +140,7 @@ class UserController extends AbstractController
             if ($user) {
 
                 $token = hash('sha256', date('Y/m/d H:i:s') . '_' . $user->getUsername());
-                $message = (new \Swift_Message('Passord Reset'))
+                $message = (new \Swift_Message('Password Reset'))
                     ->setFrom('josemadridgil90@gmail.com')
                     ->setTo($user->getEmail())
                     ->setBody(

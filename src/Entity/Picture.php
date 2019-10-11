@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PictureRepository")
@@ -17,17 +19,23 @@ class Picture
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $name;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="pictures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="pictures", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
 
-
+    /**
+     * @Assert\Image(
+     *      maxSize = "1M",
+     *      maxSizeMessage = "Votre image ne doit pas dépasser 1 Mo",
+     * )
+     */
     private $picture;
 
 
@@ -50,29 +58,6 @@ class Picture
         return $this;
     }
 
-    public function getFile(): ?string
-    {
-        return $this->file;
-    }
-
-    public function setFile(string $file): self
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-
-    public function setPath(string $path): self
-    {
-        $this->path = $path;
-
-        return $this;
-    }
 
     public function getTrick(): ?Trick
     {
@@ -97,7 +82,7 @@ class Picture
     /**
      * @param mixed $picture
      */
-    public function setPicture($picture): void
+    public function setPicture(UploadedFile $picture = null): void
     {
         $this->picture = $picture;
     }

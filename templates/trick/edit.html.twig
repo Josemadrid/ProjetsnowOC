@@ -4,62 +4,86 @@
 {% form_theme form _self %}
 
 {% block body %}
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-md-offset-1 update-trick">
-                <div class="card card-small mb-4">
-                    <div class="card-header border-bottom text-center">
-                        <h3 class="m-0">Modifier le trick</h3>
+    <!-- Start Trick -->
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-12 col-md-offset-1 mt-5 mb-4">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show mb-0 mt-1" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <i class="fa fa-check mx-2"></i>
+                        <strong>{{ message }}</strong>
                     </div>
+                {% endfor %}
+                <div class="card mt-3">
+                    <h3 class="row justify-content-center mt-3 "><strong>{{ trick.name }}</strong></h3>
 
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-3">
-                            <div class="row">
-                                <div class="col">
+                    <div class="card mt-3">
+                        <div>
+                            <img class="card-img-top" src="{{ trick.picture }}" alt="{{ trick.name }}-main">
+
+                        </div>
+                        <br>
                                     {% form_theme form _self %}
                                     {{ form_start(form) }}
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <div class="text-center">
-                                                <img src="http://placehold.it/800x600" alt="" class="img-trick-principale">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
                                         <div class="col-md-8 offset-md-2">
                                             {{ form_row(form.name) }}
+                                            {{ form_row(form.file) }}
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="load-media d-none d-lg-block">
                                         <div class="form-row">
-                                            <div class="form-group col-md-12 text-center">
+                                            <div class="col-md-8 offset-md-2 text-center">
 
                                                 <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une image</p>
-                                                {{ form_widget(form.name) }}
+                                                {{ form_widget(form.pictures) }}
+                                                {% for picture in pictures %}
+                                                <div class="col-md-8 offset-md-2">
+                                                    <img class="img-edd" src="{{ picture.name }}"><a href="{{ path('delete.picture', {id: picture.id}) }}"
+                                                                                                     style="float: right"
+                                                                                                     onclick="return confirm('Vous êtes sûr?')"
+                                                                                                     class="far fa-trash cursor trick-link"></a>
+
+                                                </div>
+                                                {% endfor %}
                                                 <input type="hidden" id="image-counter" value="0">
                                                 <div class="form-group mt-2 pb-2">
-                                                    <button type="button" class="btn btn-outline-info trick" id="add-image">Ajouter une image</button>
-                                                    <span class="counter-image text-danger"></span>
+                                                    <button type="button" class="btn btn-outline-success" id="add-image">Ajouter une image</button>
+
                                                 </div>
                                                 <hr>
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-12 text-center">
-                                                <p class="collection-head">Cliquez pour ajouter une vidéo Youtube</p>
-                                                {{ form_widget(form.name) }}
+                                            <div class="col-md-8 offset-md-2 text-center">
+                                                <p class="collection-head">Cliquez pour ajouter ou modifier une vidéo Youtube</p>
+                                                {{ form_widget(form.videos) }}
+
+                                                <div>
+                                                    {% for video in trick.videos %}
+                                                        <div class="col-md-8 offset-md-2">
+                                                            <iframe src="{{ video.url }}" allowfullscreen></iframe><a href="{{ path('delete.video', {id: video.id}) }}"
+                                                                                                                      style="float: right"
+                                                                                                                      onclick="return confirm('Vous êtes sûr?')"
+                                                                                                                      class="far fa-trash cursor trick-link"></a>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+
                                                 <input type="hidden" id="video-counter" value="0">
                                                 <div class="form-group mt-2">
-                                                    <button type="button" class="btn btn-outline-info trick" id="add-video">Ajouter une vidéo</button>
-                                                    <span class="counter-video text-danger"></span>
+                                                    <button type="button" class="btn btn-outline-success" id="add-video">Ajouter une vidéo</button>
+
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="text-center">
                                         <a href="#" id="loadMedia" class="d-md-block d-lg-none">
                                             <button class="btn btn-outline-secondary">Afficher les médias</button>
@@ -81,6 +105,8 @@
                                     </div>
                                     <div class="form-group mt-4 text-center">
                                         <button type="submit" class="btn btn-success">Modifier</button>
+                                        <a href="{{ path('delete.trick',{id: trick.id}) }}">Supprimer</a>
+
                                     </div>
                                     {{ form_end(form) }}
                                 </div>

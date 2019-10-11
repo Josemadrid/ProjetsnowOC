@@ -75,12 +75,12 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="trick", cascade={"persist"})
      */
     private $pictures;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", cascade={"persist"})
      */
     private $videos;
 
@@ -89,6 +89,8 @@ class Trick
      *      maxSize = "1M",
      *      maxSizeMessage = "Votre avatar ne doit pas dépasser 1 Mo",
      * )
+     * @Assert\NotBlank(
+     *      message = "Ce champ est requis !")
      */
     private $file;
 
@@ -203,6 +205,10 @@ class Trick
     {
         return $this->pictures;
     }
+    public function setPictures($pictures): void
+    {
+        $this->pictures = $pictures;
+    }
 
     public function addPicture(Picture $picture): self
     {
@@ -292,6 +298,7 @@ class Trick
         return $this->picture;
     }
 
+
     /**
      * @param mixed $picture
      */
@@ -325,5 +332,6 @@ class Trick
     {
         $this->path = $path;
     }
+
 
 }

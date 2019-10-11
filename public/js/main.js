@@ -45,8 +45,6 @@ $(function () {
     });
 });
 
-/*-----------------------------------------------------------------------------------*/
-
 /*  /* Enlarge image on click */
 
 /*-----------------------------------------------------------------------------------*/
@@ -57,60 +55,6 @@ $(document).ready(function () {
     });
 });
 
-/*-----------------------------------------------------------------------------------*/
-
-/*  /* Upload field */
-
-/*-----------------------------------------------------------------------------------*/
-
-$(document).on('change', '.custom-file-input', function () {
-    let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-    $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
-});
-
-/*-----------------------------------------------------------------------------------*/
-
-/*  /* Passing href to modal (delete comment) */
-
-/*-----------------------------------------------------------------------------------*/
-
-$('#deleteModal').on('show.bs.modal', function (e) {
-    $(this).find('#deleteComment').attr('href', $(e.relatedTarget).data('href'));
-});
-
-/*-----------------------------------------------------------------------------------*/
-
-/*  /* Passing href to modal (delete trick) */
-
-/*-----------------------------------------------------------------------------------*/
-
-$('#deleteTrickModal').on('show.bs.modal', function (e) {
-    $(this).find('#deleteTrick').attr('href', $(e.relatedTarget).data('href'));
-});
-
-/*-----------------------------------------------------------------------------------*/
-
-/*  /* Passing href to modal (delete user) */
-
-/*-----------------------------------------------------------------------------------*/
-
-$('#deleteUserModal').on('show.bs.modal', function (e) {
-    $(this).find('#deleteUser').attr('href', $(e.relatedTarget).data('href'));
-});
-
-/*-----------------------------------------------------------------------------------*/
-
-/*  /* Get alt and replace placeholder with it */
-
-/*-----------------------------------------------------------------------------------*/
-var i = 0;
-$('.img-trick').each(function () {
-    var alt = $(this).attr('alt');
-    $('label[for=trick_images_' + i + '_image]').text(alt);
-    i++;
-})
-
-/*-----------------------------------------------------------------------------------*/
 
 /*  /* Trick collection */
 
@@ -118,10 +62,9 @@ $('.img-trick').each(function () {
 
 $('#add-image').click(function () {
     const index = +$('#image-counter').val();
-    const tmpl = $('#trick_images').data('prototype').replace(/__name__/g, index);
-    $('#trick_images').append(tmpl);
+    const tmpl = $('#trick_pictures').data('prototype').replace(/__name__/g, index);
+    $('#trick_pictures').append(tmpl);
     $('#image-counter').val(index + 1);
-    handleDeleteButtons();
     displayCounter();
 });
 
@@ -130,25 +73,16 @@ $('#add-video').click(function () {
     const tmpl = $('#trick_videos').data('prototype').replace(/__name__/g, index);
     $('#trick_videos').append(tmpl);
     $('#video-counter').val(index + 1);
-    handleDeleteButtons();
     displayCounter();
 });
 
-function handleDeleteButtons() {
-    $('button[data-action="delete"]').click(function () {
-        const target = this.dataset.target;
-        $(target).remove();
-        updateCounterImage();
-        updateCounterVideo();
-        displayCounter();
-    })
-}
+
 
 function displayCounter() {
     const countImage = +$('#trick_images div.form-group').length;
     const counterImage = countImage + '/3';
     $('.counter-image').text(counterImage);
-    if (countImage >= 8) {
+    if (countImage >= 3) {
         $('#add-image').hide();
     } else {
         $('#add-image').show();
@@ -156,24 +90,12 @@ function displayCounter() {
     const countVideo = +$('#trick_videos div.form-group').length;
     const counterVideo = countVideo + '/3';
     $('.counter-video').text(counterVideo);
-    if (countVideo >= 8) {
+    if (countVideo >= 3) {
         $('#add-video').hide();
     } else {
         $('#add-video').show();
     }
 }
 
-function updateCounterImage() {
-    const count = +$('#trick_images div.form-group').length;
-    $('#image-counter').val(count);
-}
-
-function updateCounterVideo() {
-    const count = +$('#trick_videos div.form-group').length;
-    $('#video-counter').val(count);
-}
 
 displayCounter();
-updateCounterVideo();
-updateCounterImage();
-handleDeleteButtons();
