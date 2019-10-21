@@ -41,7 +41,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profile", name="user.dashboard")
+     * @Route("/profile", name="user.dashboard", methods="GET|POST")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index()
@@ -52,7 +52,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/inscription", name="security_registration")
+     * @Route("/inscription", name="security_registration", methods="GET|POST")
      */
     public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
     {
@@ -96,7 +96,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/connexion", name="user_login")
+     * @Route("/connexion", name="user_login", methods="GET|POST")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function login(AuthenticationUtils $authenticationUtils)
@@ -110,7 +110,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/deconnexion", name="user_logout")
+     * @Route("/deconnexion", name="user_logout", methods="GET|POST")
      */
     public function logout()
     {
@@ -121,7 +121,7 @@ class UserController extends AbstractController
     /**
      * Forgot password
      *
-     * @Route("/forgot-password", name="account_forgot")
+     * @Route("/forgot-password", name="account_forgot", methods="GET|POST")
      *
      * @param Request $request
      * @param UserRepository $userRepository
@@ -175,7 +175,7 @@ class UserController extends AbstractController
     /**
      * Reset password
      *
-     * @Route("/reset-password", name="account_reset")
+     * @Route("/reset-password", name="account_reset", methods="GET|POST")
      *
      * @param Request $request
      * @param UserRepository $userRepository
@@ -233,7 +233,7 @@ class UserController extends AbstractController
     /**
      * Update password
      *
-     * @Route("profile/update-password", name="account_password")
+     * @Route("profile/update-password", name="account_password", methods="GET|POST")
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder

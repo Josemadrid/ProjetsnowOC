@@ -16,23 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 {
 
-    /**
-     * @var TrickRepository
-     */
-    private $repository;
+
     /**
      * @var ObjectManager
      */
     private $manager;
 
-    public function __construct(CommentRepository $repository, ObjectManager $manager)
+    public function __construct(ObjectManager $manager)
     {
-        $this->repository = $repository;
+
         $this->manager = $manager;
     }
 
     /**
-     * @Route("/comment", name="comment")
+     * @Route("/comment", name="comment", methods="GET|POST")
      */
     public function addComment($id, Trick $trick, Request $request): Response
     {

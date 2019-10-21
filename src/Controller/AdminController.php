@@ -14,25 +14,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
 
-    /**
-     * @var TrickRepository
-     */
-    private $repository;
+
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(TrickRepository $repository, ObjectManager $em)
+    public function __construct(ObjectManager $em)
     {
-        $this->repository = $repository;
+
         $this->em = $em;
     }
 
 
 
     /**
-     * @Route("/admin/trick/create", name= "admin.trick.new")
+     * @Route("/admin/trick/create", name= "admin.trick.new", methods="GET|POST")
      */
     public function new(Request $request)
     {

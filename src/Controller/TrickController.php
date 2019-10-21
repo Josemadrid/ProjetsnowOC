@@ -42,7 +42,7 @@ class TrickController extends AbstractController
 
 
     /**
-     * @Route("/trick/{id}", name="trick.show")
+     * @Route("/trick/{id}", name="trick.show", methods="GET|POST")
      * @param $id
      * @param Trick $trick
      * @return Response
@@ -172,7 +172,7 @@ class TrickController extends AbstractController
 
 
     /**
-     * @Route ("/add/trick", name="add.trick")
+     * @Route ("/add/trick", name="add.trick", methods="GET|POST")
      * @param Request
      * @return Response
      */
