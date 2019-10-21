@@ -186,8 +186,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
 
-            /** @var UploadedFile $file */
-            $file = $form->get('file')->getData();
+
 
             /** @var ArrayCollection $arrayCollectionPictures */
             $arrayCollectionPictures = $form->get('pictures')->getData();
@@ -213,12 +212,20 @@ class TrickController extends AbstractController
                 }
             }
 
+            /** @var UploadedFile $file */
+            $file = $form->get('file')->getData();
+            if ($file === null){
+                $image = '/pictures/default-trick.jpg';
+                $trick->setPicture($image);
+            } else{
+                move_uploaded_file($file->getLinkTarget(), ('pictures/') . $file->getFilename());
+                rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
 
-            move_uploaded_file($file->getLinkTarget(), ('pictures/') . $file->getFilename());
-            rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
+                $pic = $file->getClientOriginalName();
+                $trick->setPicture(('/pictures/') . $pic);
+            }
 
-            $pic = $file->getClientOriginalName();
-            $trick->setPicture(('/pictures/') . $pic);
+
 
 
             $trick->setCreatedAt(new \Datetime('now', new \DateTimeZone('Europe/Paris')));

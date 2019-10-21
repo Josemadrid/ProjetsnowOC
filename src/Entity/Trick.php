@@ -91,7 +91,7 @@ class Trick
      *      maxSizeMessage = "Votre image ne peut pas dépasser 2 Mo",
      * )
      *
-     * @Assert\NotBlank(message="Le champ ne peut être vide")
+     *
      */
     private $file;
 
