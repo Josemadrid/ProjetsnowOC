@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -45,7 +46,7 @@ class Trick
      * )
      * @Assert\Length(
      *      min = 15,
-     *      max = 250,
+     *      max = 1000,
      *      minMessage = "Votre description doit contenir au moins {{ limit }} caractères !",
      *      maxMessage = "Votre description ne peut pas contenir plus que {{ limit }} caractères !"
      * )
@@ -89,8 +90,7 @@ class Trick
      *      maxSize = "1M",
      *      maxSizeMessage = "Votre avatar ne doit pas dépasser 1 Mo",
      * )
-     * @Assert\NotBlank(
-     *      message = "Ce champ est requis !")
+     * @Assert\File(uploadNoFileErrorMessage="Choisir un image principal")
      */
     private $file;
 
@@ -104,6 +104,8 @@ class Trick
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
+
+    private $path;
 
 
 
@@ -224,7 +226,6 @@ class Trick
     {
         if ($this->pictures->contains($picture)) {
             $this->pictures->removeElement($picture);
-            // set the owning side to null (unless already changed)
             if ($picture->getTrick() === $this) {
                 $picture->setTrick(null);
             }
@@ -318,7 +319,7 @@ class Trick
     /**
      * @param mixed $file
      */
-    public function setFile($file): void
+    public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
     }

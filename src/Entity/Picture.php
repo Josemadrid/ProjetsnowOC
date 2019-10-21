@@ -38,6 +38,7 @@ class Picture
      */
     private $picture;
 
+    private $path;
 
 
 
@@ -82,8 +83,24 @@ class Picture
     /**
      * @param mixed $picture
      */
-    public function setPicture(UploadedFile $picture = null): void
+    public function setPicture(UploadedFile $picture = null)
     {
         $this->picture = $picture;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path): void
+    {
+        $this->path = $path;
     }
 }

@@ -63,6 +63,7 @@ $(document).ready(function () {
 $('#add-image').click(function () {
     const index = +$('#image-counter').val();
     const tmpl = $('#trick_pictures').data('prototype').replace(/__name__/g, index);
+    console.log(tmpl,index);
     $('#trick_pictures').append(tmpl);
     $('#image-counter').val(index + 1);
     displayCounter();

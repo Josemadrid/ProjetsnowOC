@@ -15,6 +15,7 @@ use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +58,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
 
-            $comment->setCreatedAt(new \DateTime())
+            $comment->setCreatedAt((new \Datetime('now', new \DateTimeZone('Europe/Paris'))))
                 ->setTrick($trick)
                 ->setUser($this->getUser());
             $this->manager->persist($comment);
@@ -110,6 +111,12 @@ class TrickController extends AbstractController
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
 
+            if ($file == $trick->getPicture())
+            {
+                $file->getFilename();
+            }
+
+
             move_uploaded_file($file->getLinkTarget(), ('pictures/') . $file->getFilename());
             rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
             $pic = $file->getClientOriginalName();
@@ -117,17 +124,26 @@ class TrickController extends AbstractController
 
             /** @var ArrayCollection $arrayCollectionPictures */
             $arrayCollectionPictures = $form->get('pictures')->getData();
+
+            dump($trick->getPictures());
+
             /** @var Picture $picture */
             foreach ($arrayCollectionPictures->getValues() as $picture) {
+
                 /** @var UploadedFile $img */
                 $img = $picture->getPicture();
-                $fileName = '/pictures/' . md5(uniqid()) . '.' . $img->guessExtension();
-                $img->move($this->getParameter('upload_directory'), $fileName);
-                $picture->setName($fileName);
-                $picture->setPicture($img);
-                $trick->addPicture($picture);
+                if ($img) {
+                    $fileName = '/pictures/' . md5(uniqid()) . '.' . $img->guessExtension();
+                    $img->move($this->getParameter('upload_directory'), $fileName);
+                    $picture->setName($fileName);
+                    $picture->setPicture($img);
+                    $trick->addPicture($picture);
 
-            }
+                }
+
+
+            }dump($trick->getPictures());
+
 
 
             foreach ($trick->getVideos() as $video) {
@@ -196,7 +212,6 @@ class TrickController extends AbstractController
                 }
             }
 
-            dump($form->getData());
 
             move_uploaded_file($file->getLinkTarget(), ('pictures/') . $file->getFilename());
             rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
@@ -225,10 +240,13 @@ class TrickController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public
-    function delete(Trick $trick, VideoRepository $videoRepository, CommentRepository $comment)
+    function delete(Trick $trick, VideoRepository $videoRepository, CommentRepository $comment, PictureRepository $pictureRepository)
     {
         foreach ($comment->findBy(['trick' => $trick->getId()]) as $commentEntity) {
             $this->manager->remove($commentEntity);
+        }
+        foreach ($pictureRepository->findBy(['trick' => $trick->getId()]) as $pictureEntity) {
+            $this->manager->remove($pictureEntity);
         }
 
         foreach ($videoRepository->findBy(['trick' => $trick->getId()]) as $videoEntity) {
@@ -264,8 +282,7 @@ class TrickController extends AbstractController
      * @param Picture $picture
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public
-    function deletepicture(Picture $picture)
+    public function deletepicture(Picture $picture)
     {
 
         $this->manager->remove($picture);
