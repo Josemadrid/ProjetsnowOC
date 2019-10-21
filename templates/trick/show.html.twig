@@ -166,7 +166,7 @@
                         </div>
                     </div>
                 {% endif %}
-                <!-- Start Comment Add Form -->
+
 
                 <!-- Start Comments -->
                 <span class="comments-anchor" id="comments-block"></span>
@@ -182,7 +182,7 @@
                                             <img src="/pictures/avatar-default.jpg" class="entry-comments-avatar"
                                                  alt="">
                                             <div class="entry-comments-body">
-                                                <span class="entry-comments-author"></span>
+                                                <span class="entry-comments-author"><a>{{ comment.user.username }}</a></span>
                                                 <span class="comment-date">le {{ comment.createdAt | date('d/m/Y') }} à {{ comment.createdAt | date('H:i') }}</span>
                                                 <p class="comment-content text-justify">{{ comment.contenu }}</p>
                                             </div>

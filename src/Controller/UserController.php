@@ -127,7 +127,7 @@ class UserController extends AbstractController
      * @param UserRepository $userRepository
      * @param ObjectManager $manager
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function forgotPassword(Request $request, UserRepository $userRepository, \Swift_Mailer $mailer)
     {
@@ -182,7 +182,7 @@ class UserController extends AbstractController
      * @param ObjectManager $manager
      * @param UserPasswordEncoderInterface $encoder
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function resetPassword(UserRepository $userRepository, TokenPasswordRepository $tokenPasswordRepository, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -239,7 +239,7 @@ class UserController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @param ObjectManager $manager
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public
     function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager)

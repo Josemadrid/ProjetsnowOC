@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      message="Cette adresse email est déjà utilisée."
  * )
  */
-class User implements UserInterface,\Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -94,10 +94,7 @@ class User implements UserInterface,\Serializable
     private $tricks;
 
 
-
-
-
-
+    private $token;
 
 
     public function __construct()
@@ -172,19 +169,23 @@ class User implements UserInterface,\Serializable
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setAuthor($this);
+            $comment->setUser($this);
         }
 
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return User
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getAuthor() === $this) {
-                $comment->setAuthor(null);
+            if ($comment->setUser() === $this) {
+                $comment->setUser(null);
             }
         }
 
@@ -228,10 +229,12 @@ class User implements UserInterface,\Serializable
     }
 
     public function getSalt()
-    {}
+    {
+    }
 
     public function eraseCredentials()
-    {}
+    {
+    }
 
 
     /**
@@ -282,8 +285,21 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
 
-
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token): void
+    {
+        $this->token = $token;
+    }
 
 
 }

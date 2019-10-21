@@ -15,14 +15,12 @@ use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
-use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\HttpFoundation\File\File;
 
 
 class TrickController extends AbstractController
@@ -111,21 +109,24 @@ class TrickController extends AbstractController
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
 
-            if ($file == $trick->getPicture())
+            if ($file !== null)
             {
-                $file->getFilename();
+                move_uploaded_file($file->getLinkTarget(), ('pictures/') . $file->getFilename());
+                rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
+                $pic = $file->getClientOriginalName();
+                $trick->setPicture(('/pictures/') . $pic);
+            }else{
+                $trick->getFile();
+
             }
 
 
-            move_uploaded_file($file->getLinkTarget(), ('pictures/') . $file->getFilename());
-            rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
-            $pic = $file->getClientOriginalName();
-            $trick->setPicture(('/pictures/') . $pic);
+
 
             /** @var ArrayCollection $arrayCollectionPictures */
             $arrayCollectionPictures = $form->get('pictures')->getData();
 
-            dump($trick->getPictures());
+
 
             /** @var Picture $picture */
             foreach ($arrayCollectionPictures->getValues() as $picture) {
@@ -142,7 +143,7 @@ class TrickController extends AbstractController
                 }
 
 
-            }dump($trick->getPictures());
+            }
 
 
 

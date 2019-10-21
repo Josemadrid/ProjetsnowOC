@@ -87,10 +87,11 @@ class Trick
 
     /**
      * @Assert\Image(
-     *      maxSize = "1M",
-     *      maxSizeMessage = "Votre avatar ne doit pas dépasser 1 Mo",
+     *      maxSize = "2M",
+     *      maxSizeMessage = "Votre image ne peut pas dépasser 2 Mo",
      * )
-     * @Assert\File(uploadNoFileErrorMessage="Choisir un image principal")
+     *
+     * @Assert\NotBlank(message="Le champ ne peut être vide")
      */
     private $file;
 
