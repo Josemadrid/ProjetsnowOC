@@ -101,7 +101,7 @@ class Trick
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type",fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type",fetch="EAGER", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
