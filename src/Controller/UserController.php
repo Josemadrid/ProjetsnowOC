@@ -75,7 +75,7 @@ class UserController extends AbstractController
                     $this->renderView('emails/registration.html.twig', [
                         'username' => $user->getUsername(),
                         'token' => $user->getToken(),
-                        'adress' => $_SERVER['SERVER_NAME'] . ':8000',
+                        'adress' => $request->getHost(),
                     ]),
                     'text/html'
                 );
@@ -147,7 +147,7 @@ class UserController extends AbstractController
                         $this->renderView('emails/forgot-password.html.twig', [
                             'username' => $user->getUsername(),
                             'token' => $token,
-                            'adress' => $_SERVER['SERVER_NAME'] . ':8000',
+                            'adress' => $request->getHost(),
                         ]),
                         'text/html'
                     );
@@ -184,9 +184,9 @@ class UserController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function resetPassword(UserRepository $userRepository, TokenPasswordRepository $tokenPasswordRepository, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function resetPassword(Request $request, UserRepository $userRepository, TokenPasswordRepository $tokenPasswordRepository, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $request = Request::createFromGlobals();
+
         if ($request->query->get('id')) {
             $id = $request->query->get('id');
         } else {

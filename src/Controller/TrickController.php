@@ -115,18 +115,10 @@ class TrickController extends AbstractController
                 rename(('pictures/') . $file->getFilename(), ('pictures/') . $file->getClientOriginalName());
                 $pic = $file->getClientOriginalName();
                 $trick->setPicture(('/pictures/') . $pic);
-            }else{
-                $trick->getFile();
-
             }
-
-
-
 
             /** @var ArrayCollection $arrayCollectionPictures */
             $arrayCollectionPictures = $form->get('pictures')->getData();
-
-
 
             /** @var Picture $picture */
             foreach ($arrayCollectionPictures->getValues() as $picture) {
