@@ -42,7 +42,7 @@ footer {
 
 .slogan {
     height: 100vh;
-    text-align: left;
+    text-align: center;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -216,7 +216,7 @@ ol {
 
 .chevron-down {
     position: absolute;
-    right: 0.3%;
+    right: 0%;
     bottom: 0%;
 }
 
