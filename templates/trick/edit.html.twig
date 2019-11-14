@@ -26,96 +26,104 @@
 
                         </div>
                         <br>
-                                    {% form_theme form _self %}
-                                    {{ form_start(form) }}
-                                    <div class="form-row">
+                        {% form_theme form _self %}
+                        {{ form_start(form) }}
+                        <div class="form-row">
+                            <div class="col-md-8 offset-md-2">
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.file) }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="load-media d-none d-lg-block">
+                            <div class="form-row">
+                                <div class="col-md-8 offset-md-2 text-center">
+
+                                    <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une
+                                        image</p>
+                                    {{ form_widget(form.pictures) }}
+                                    {% for picture in pictures %}
                                         <div class="col-md-8 offset-md-2">
-                                            {{ form_row(form.name) }}
-                                            {{ form_row(form.file) }}
+                                            <img class="img-edd" src="{{ picture.name }}"><a
+                                                    href="{{ path('delete.picture', {id: picture.id}) }}"
+                                                    style="float: right"
+                                                    onclick="return confirm('Vous êtes sûr?')"
+                                                    class="far fa-trash cursor trick-link"></a>
+
                                         </div>
+                                    {% endfor %}
+                                    <input type="hidden" id="image-counter" value="{{ pictures|length }}">
+                                    <div class="form-group mt-2 pb-2">
+                                        <button type="button" class="btn btn-outline-success" id="add-image">Ajouter une
+                                            image
+                                        </button>
+
                                     </div>
                                     <hr>
-                                    <div class="load-media d-none d-lg-block">
-                                        <div class="form-row">
-                                            <div class="col-md-8 offset-md-2 text-center">
-
-                                                <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une image</p>
-                                                {{ form_widget(form.pictures) }}
-                                                {% for picture in pictures %}
-                                                <div class="col-md-8 offset-md-2">
-                                                    <img class="img-edd" src="{{ picture.name }}"><a href="{{ path('delete.picture', {id: picture.id}) }}"
-                                                                                                     style="float: right"
-                                                                                                     onclick="return confirm('Vous êtes sûr?')"
-                                                                                                     class="far fa-trash cursor trick-link"></a>
-
-                                                </div>
-                                                {% endfor %}
-                                                <input type="hidden" id="image-counter" value="{{ pictures|length }}">
-                                                <div class="form-group mt-2 pb-2">
-                                                    <button type="button" class="btn btn-outline-success" id="add-image">Ajouter une image</button>
-
-                                                </div>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-8 offset-md-2 text-center">
-                                                <p class="collection-head">Cliquez pour ajouter ou modifier une vidéo Youtube</p>
-                                                {{ form_widget(form.videos) }}
-
-                                                <div>
-                                                    {% for video in trick.videos %}
-                                                        <div class="col-md-8 offset-md-2">
-                                                            <iframe src="{{ video.url }}" allowfullscreen></iframe><a href="{{ path('delete.video', {id: video.id}) }}"
-                                                                                                                      style="float: right"
-                                                                                                                      onclick="return confirm('Vous êtes sûr?')"
-                                                                                                                      class="far fa-trash cursor trick-link"></a>
-                                                        </div>
-                                                    {% endfor %}
-                                                </div>
-
-                                                <input type="hidden" id="video-counter" value="{{ videos|length }}">
-                                                <div class="form-group mt-2">
-                                                    <button type="button" class="btn btn-outline-success" id="add-video">Ajouter une vidéo</button>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <a href="#" id="loadMedia" class="d-md-block d-lg-none">
-                                            <button class="btn btn-outline-secondary">Afficher les médias</button>
-                                        </a>
-                                        <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
-                                            <button class="btn btn-outline-secondary mt-3">Masquer les médias</button>
-                                        </a>
-                                    </div>
-                                    <hr class="hrspecial">
-                                    <div class="col-md-8 offset-md-2">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                {{ form_row(form.description) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            {{ form_row(form.type) }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group mt-4 text-center">
-                                        <button type="submit" class="btn btn-success">Modifier</button>
-                                        <a href="{{ path('delete.trick',{id: trick.id}) }}">Supprimer</a>
-
-                                    </div>
-                                    {{ form_end(form) }}
                                 </div>
                             </div>
-                        </li>
-                    </ul>
+                            <div class="form-row">
+                                <div class="col-md-8 offset-md-2 text-center">
+                                    <p class="collection-head">Cliquez pour ajouter ou modifier une vidéo Youtube</p>
+                                    {{ form_widget(form.videos) }}
+
+                                    <div>
+                                        {% for video in videos %}
+                                            <div class="col-md-8 offset-md-2">
+                                                <iframe style="width: 250px" src="{{ video.url }}" allowfullscreen></iframe>
+
+                                                <a href="{{ path('delete.video', {id: video.id}) }}"
+                                                   style="float: right"
+                                                   onclick="return confirm('Vous êtes sûr?')"
+                                                   class="far fa-trash cursor trick-link"></a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <input type="hidden" id="video-counter" value="{{ videos|length }}">
+                                    <div class="form-group mt-2">
+                                        <button type="button" class="btn btn-outline-success" id="add-video">Ajouter une
+                                            vidéo
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="#" id="loadMedia" class="d-md-block d-lg-none">
+                                <button class="btn btn-outline-secondary">Afficher les médias</button>
+                            </a>
+                            <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
+                                <button class="btn btn-outline-secondary mt-3">Masquer les médias</button>
+                            </a>
+                        </div>
+                        <hr class="hrspecial">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    {{ form_row(form.description) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.type) }}
+                            </div>
+                        </div>
+                        <div class="form-group mt-4 text-center">
+                            <button type="submit" class="btn btn-success">Modifier</button>
+                            <a href="{{ path('delete.trick',{id: trick.id}) }}">Supprimer</a>
+
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
                 </div>
+                </li>
+                </ul>
             </div>
         </div>
+    </div>
     </div>
 
 {% endblock %}

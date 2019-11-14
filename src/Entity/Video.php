@@ -18,7 +18,6 @@ class Video
     private $id;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="videos", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
@@ -40,6 +39,12 @@ class Video
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
 
     public function getTrick(): ?Trick

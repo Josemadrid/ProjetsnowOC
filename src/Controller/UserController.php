@@ -75,7 +75,7 @@ class UserController extends AbstractController
                     $this->renderView('emails/registration.html.twig', [
                         'username' => $user->getUsername(),
                         'token' => $user->getToken(),
-                        'adress' => $request->getHost(),
+                        'adress' => $request->getHost().':8000',
                     ]),
                     'text/html'
                 );

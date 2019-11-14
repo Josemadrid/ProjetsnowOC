@@ -6,7 +6,9 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use App\Repository\PictureRepository;
 use App\Repository\TrickRepository;
+use App\Repository\VideoRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,10 +60,15 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/allcomments/{id},", name="all.comments", methods="GET|POST")
+     * @param $id
+     * @param PictureRepository $pictures
+     * @param TrickRepository $trickRepository
      * @param CommentRepository $repository
+     * @param Request $request
      * @return Response
+     * @throws \Exception
      */
-    public function allTricks($id, TrickRepository $trickRepository, CommentRepository $repository, Request $request)
+    public function allTricks($id, PictureRepository $pictureRepository, TrickRepository $trickRepository, CommentRepository $repository, VideoRepository $videoRepository, Request $request)
     {
         $comment = new Comment();
         $allcomments = $repository->findWithMaxResult(100, $id);
@@ -76,10 +83,16 @@ class CommentController extends AbstractController
 
 
         }
+        $trick = $trickRepository->findOneById($id);
+        $pictures = $pictureRepository->findBy(array('trick' => $trick->getId()));
+        $videos = $videoRepository->findBy(array('trick' => $trick->getId()));
+
 
         return $this->render('trick/show.html.twig', [
-            'trick' => $trickRepository->findOneById($id),
+            'trick' => $trick,
+            'videos' => $videos,
             'comments' => $allcomments,
+            'pictures' => $pictures,
             'form' => $form->createView(),
             'display' => false
         ]);

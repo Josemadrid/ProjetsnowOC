@@ -135,14 +135,17 @@ class TrickController extends AbstractController
                 }
 
 
+
+
             }
+            /** @var ArrayCollection $arraCollectionVideos */
+            $arraCollectionVideos = $form->get('videos')->getData();
 
 
-
-            foreach ($trick->getVideos() as $video) {
+            foreach ($arraCollectionVideos->getValues() as $video) {
                 if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
-                    $video_id = $match[1];
-                    $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+                    $video->setUrl('https://www.youtube.com/embed/' . $match[1]);
+                    $trick->addVideo($video);
                 }
             }
 
@@ -154,6 +157,7 @@ class TrickController extends AbstractController
         }
         $pictures = $pictureRepository->findBy(array('trick' => $trick->getId()));
         $videos = $videoRepository->findBy(array('trick' => $trick->getId()));
+        dump($trick->getVideos());
 
         return $this->render('trick/edit.html.twig', ['form' => $form->createView(),
             'trick' => $trick,
