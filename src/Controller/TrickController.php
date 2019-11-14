@@ -157,7 +157,7 @@ class TrickController extends AbstractController
         }
         $pictures = $pictureRepository->findBy(array('trick' => $trick->getId()));
         $videos = $videoRepository->findBy(array('trick' => $trick->getId()));
-        dump($trick->getVideos());
+
 
         return $this->render('trick/edit.html.twig', ['form' => $form->createView(),
             'trick' => $trick,
